@@ -39,6 +39,7 @@
         </mailingList>
     </mailingLists>
     <properties>
+        <jsonldjava.version>0.2</jsonldjava.version>
         <junit.version>4.11</junit.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -183,6 +184,13 @@
             <groupId>com.github.ansell.sesame-rio-extensions</groupId>
             <artifactId>sesame-rio-extensions-rdfjson</artifactId>
             <version>${sesamerioextensions.version}</version>
+            <type>jar</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.jsonld-java</groupId>
+            <artifactId>jsonld-java-sesame</artifactId>
+            <version>${jsonldjava.version}</version>
             <type>jar</type>
             <scope>runtime</scope>
         </dependency>

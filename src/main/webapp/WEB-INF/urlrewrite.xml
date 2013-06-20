@@ -95,6 +95,15 @@
 	</rule>
 	
 	<rule>
+		<from>^/jsonld/queryall/(.*)$</from>
+		<set name="org.queryall.servlets.QueryAllSchemaServlet.apiVersion">current</set>
+		<set name="org.queryall.servlets.QueryAllSchemaServlet.queryString">$1</set>
+		<set name="org.queryall.servlets.QueryAllSchemaServlet.chosenContentType">application/ld+json</set>
+		<run class="org.queryall.servlets.QueryAllSchemaServlet" method="doGet" />
+		<to last="true">null</to>
+	</rule>
+	
+	<rule>
 		<from>^/ntriples/queryall/(.*)$</from>
 		<set name="org.queryall.servlets.QueryAllSchemaServlet.apiVersion">current</set>
 		<set name="org.queryall.servlets.QueryAllSchemaServlet.queryString">$1</set>
@@ -152,7 +161,7 @@
 	</rule>
 
 	<rule>
-		<from>^(/page|/rdfxml|/n3|/json|/ntriples|/nquads|)/(rdfrule|provider|profile|query|ns|ruletest|project):.+$</from>
+		<from>^(/page|/rdfxml|/n3|/json|/jsonld|/ntriples|/nquads|)/(rdfrule|provider|profile|query|ns|ruletest|project):.+$</from>
 		<run class="org.queryall.servlets.ConfigurationServlet" method="doGet" />
 		<to last="true">null</to>
 	</rule>
@@ -172,7 +181,7 @@
 	</rule>
 
     <rule>
-		<from>^(/page|/rdfxml|/n3|/json|/ntriples|/nquads|)/(.+)$</from>
+		<from>^(/page|/rdfxml|/n3|/json|/jsonld|/ntriples|/nquads|)/(.+)$</from>
 		<run class="org.queryall.servlets.GeneralServlet" method="doGet" />
 		<to last="true">null</to>
 	</rule>
