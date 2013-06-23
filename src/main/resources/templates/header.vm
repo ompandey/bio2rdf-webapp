@@ -31,7 +31,11 @@ $debugString
 #end
 #if ($json_link)
 #set ($xmlEncoded_json_link = $json_link)
-    <link rel="alternate" type="application/json" href="$xmlEncoded_json_link" title="JSON alternate representation" />
+    <link rel="alternate" type="application/rdf+json" href="$xmlEncoded_json_link" title="RDF/JSON alternate representation" />
+#end
+#if ($jsonld_link)
+#set ($xmlEncoded_jsonld_link = $jsonld_link)
+    <link rel="alternate" type="application/ld+json" href="$xmlEncoded_jsonld_link" title="JSON-LD alternate representation" />
 #end
     <link rel="canonical" href="${xmlEncoded_uri}" />
 #if ($previouspagelink && $previouspagelabel)

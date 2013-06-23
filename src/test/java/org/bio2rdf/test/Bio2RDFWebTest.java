@@ -144,7 +144,7 @@ public class Bio2RDFWebTest extends AbstractQueryAllWebTest
      * DO NOT REMOVE the Ignore annotation below without reason, as it will fail after a few minutes
      * with OutOfMemoryError
      */
-    @Ignore
+    @Ignore("Causes OutOfMemoryError")
     @Test
     public void testCurrentApiVersionAdminConfigurationHtml()
     {
@@ -158,6 +158,16 @@ public class Bio2RDFWebTest extends AbstractQueryAllWebTest
     public void testCurrentApiVersionAdminConfigurationJson()
     {
         this.getWebTester().gotoPage("/admin/configuration/" + SettingsFactory.CONFIG_API_VERSION + "/json");
+        this.getWebTester().assertHeaderEquals("Content-type", "application/rdf+json;charset=UTF-8");
+    }
+    
+    /**
+     * Tests that the /admin/configuration/CURRENT/jsonld interface is working correctly
+     */
+    @Test
+    public void testCurrentApiVersionAdminConfigurationJsonLD()
+    {
+        this.getWebTester().gotoPage("/admin/configuration/" + SettingsFactory.CONFIG_API_VERSION + "/jsonld");
     }
     
     /**
