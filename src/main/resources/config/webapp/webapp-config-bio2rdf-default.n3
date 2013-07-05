@@ -118,7 +118,7 @@ queryall:projectHomeUrl "http://bio2rdf.org/" ;
 
 queryall:projectName "Bio2RDF" ;
 
-queryall:applicationHelpUrl "http://sourceforge.net/apps/mediawiki/bio2rdf/" ;
+queryall:applicationHelpUrl "https://github.com/bio2rdf/bio2rdf-webapp" ;
 
 queryall:blacklistContactEmailAddress "bio2rdf@googlegroups.com" ;
 
@@ -162,32 +162,11 @@ queryall:commentProperties
 queryall:urlProperties 
 bio2rdf_bio2rdf_resource:url , <http://xmlns.com/foaf/0.1/page> , <http://xmlns.com/foaf/0.1/homepage> , <http://rdf.myexperiment.org/ontologies/base/human-start-page> , <http://purl.org/dc/terms/hasFormat> , <http://rdf.myexperiment.org/ontologies/base/content-url> ;
 
-queryall:indexTemplate "/templates/default-index.vm" ;
+queryall:indexTemplate "/templates/jquery-page.vm" ;
 
-queryall:resultsTemplate "/templates/page.vm" ;
+queryall:resultsTemplate "/templates/jquery-page.vm" ;
 
 queryall:errorTemplate "/templates/error.vm" ;
-
-queryall:indexPageScripts "https://www.google.com/jsapi" ;
-
-queryall:indexPageScriptsLocal "static/includes-scripts/script.js" ; 
-#, "static/includes-scripts/gfdynamicfeedcontrol.js" ;
-
-#queryall:indexPageStylesheets "http://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.css" ;
-
-#queryall:indexPageStylesheetsLocal "static/includes-css/gfdynamicfeedcontrol.css" ;
-
-#queryall:resultsPageScripts "https://www.google.com/jsapi" ;
-
-queryall:resultsPageScriptsLocal "static/includes-scripts/script.js" ;
-
-queryall:resultsPageStylesheetsLocal "static/includes-css/html_page_styles.css" ;
-
-queryall:shortcutIconPath "static/includes-images/bio2rdf-16.png" ;
-
-queryall:indexBannerImagePath "static/includes-images/bio2rdf-banner.jpg" ;
-
-queryall:indexProjectImagePath "static/includes-images/Bio2rdf-logo-ob-med.png" ;
 
 queryall:unknownQueryStaticAdditions bio2rdf_query:unknownquery ;
 
@@ -211,14 +190,13 @@ queryall:preferredDisplayLanguage "en" ;
 
 queryall:assumedResponseContentType "application/rdf+xml" ;
 
-queryall:defaultAcceptHeader "application/rdf+xml, text/rdf+n3, text/turtle;q=0.8, text/plain;q=0.7, application/x-turtle;q=0.35, text/n3;q=0.35, application/xhtml+xml;q=0.3, text/html;q=0.3, text/xml;q=0.2, application/xml;q=0.2" ;
+queryall:defaultAcceptHeader "application/rdf+xml, text/rdf+n3, text/turtle;q=0.8, text/plain;q=0.7, application/rdf+json;q=0.6, application/ld+json;q=0.5, application/x-turtle;q=0.35, text/n3;q=0.35, application/xhtml+xml;q=0.3, text/html;q=0.3, text/xml;q=0.2, application/xml;q=0.2, application/json;q=0.2" ;
 
 queryall:useRequestCache "true"^^xsd:boolean ;
 
 queryall:convertAlternateNamespacePrefixesToPreferred "true"^^xsd:boolean ;
 
 queryall:useVirtuosoMaxRowsParameter "false"^^xsd:boolean ;
-
 
 .
 
