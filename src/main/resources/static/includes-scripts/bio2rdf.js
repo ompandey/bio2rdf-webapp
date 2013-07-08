@@ -48,6 +48,25 @@ bio2rdf.renderTriplesCallback = function(queryString, nextDatabank) {
         console.debug("[renderTriplesCallback] Databank size = " + nextDatabank.size());
     }
 
+    // Find label if possible
+    var labelQuery = $.rdf({
+        databank : nextDatabank
+    })
+    // Find all possible child object details for this object type
+    .where('?subject rdfs:label ?label');
+
+    var labels = labelQuery.select();
+
+    var label = "";
+    $.each(labels, function(index, nextLabel) {
+        label += nextLabel.label.value + "<br/>";
+        if (index === 0) {
+            document.title = label + " : " + bio2rdf.appName;
+        }
+    });
+
+    $("#label").text(label);
+
     var myQuery = $.rdf({
         databank : nextDatabank
     })
@@ -60,57 +79,57 @@ bio2rdf.renderTriplesCallback = function(queryString, nextDatabank) {
     var table = document.createElement("table");
     $table = $(table);
     $table.addClass("table table-striped");
-    
+
     var trHeader = document.createElement("tr");
     $trHeader = $(trHeader);
-    
+
     var thSubject = document.createElement("th");
     $thSubject = $(thSubject);
     $thSubject.text("Subject");
     $trHeader.append($thSubject);
-    
+
     var thPredicate = document.createElement("th");
     $thPredicate = $(thPredicate);
     $thPredicate.text("Predicate");
     $trHeader.append($thPredicate);
-    
+
     var thObject = document.createElement("th");
     $thObject = $(thObject);
     $thObject.text("Object");
     $trHeader.append($thObject);
-    
+
     $table.append($trHeader);
-    
+
     // Using document.createElement as it has a huge advantage over the jquery
     // method according to:
     // http://jsperf.com/create-dom-element/10
     $.each(bindings, function(index, nextChild) {
         var tr = document.createElement("tr");
         $tr = $(tr);
-        
+
         var tdSubject = document.createElement("td");
         $tdSubject = $(tdSubject);
-        if(nextChild.subject.type === "uri") {
+        if (nextChild.subject.type === "uri") {
             $tdSubject.attr("about", nextChild.subject.value);
         }
         $tdSubject.text(nextChild.subject.value);
         $tr.append($tdSubject);
-        
+
         var tdPredicate = document.createElement("td");
         $tdPredicate = $(tdPredicate);
         // TODO: Add RDFa for predicate
         $tdPredicate.text(nextChild.predicate.value);
         $tr.append($tdPredicate);
-        
+
         var tdObject = document.createElement("td");
         $tdObject = $(tdObject);
         // TODO: Add RDFa for object
         $tdObject.text(nextChild.object.value);
         $tr.append($tdObject);
-        
+
         $table.append($tr);
     });
-    
+
     $("#all").append($table);
 };
 

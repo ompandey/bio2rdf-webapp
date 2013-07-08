@@ -34,7 +34,8 @@
 	
 	<script type="application/javascript">
 		bio2rdf = {
-			baseUrl: "${xmlEncoded_server_base}"
+			baseUrl: "${xmlEncoded_server_base}",
+			appName: "${xmlEncoded_project_name}"
 		};
 	</script>	
 	
@@ -82,6 +83,11 @@
     <div id="errorMessage">
     
     </div>
+    
+    <div id="label">
+    	
+    </div>
+    
 	<div id="all">
 	#if ($stringutil.isEmpty($query_string)) 
 		<div id="main">
