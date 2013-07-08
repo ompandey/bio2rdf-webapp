@@ -17,7 +17,7 @@
 
 	<title>${xmlEncoded_project_name}</title>
 	<link rel="shortcut icon" href="${xmlEncoded_server_base}static/includes-images/bio2rdf-16.png" />
-#if ($debug_level_debug) 
+#if ($debug_level_info) 
 	<!-- Debug mode: loading uncompressed CSS and Javascript -->
 	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.css" rel="stylesheet" />
 	<script src="http://code.jquery.com/jquery-1.10.1.js" type="application/javascript"></script>
@@ -46,10 +46,7 @@
                 <a href="${xmlEncoded_server_base}">Home</a>
               </li>
               <li class="">
-                <a href="https://github.com/bio2rdf/bio2rdf-scripts">Scripts</a>
-              </li>
-              <li class="">
-                <a href="https://github.com/bio2rdf/bio2rdf-webapp">Webapp</a>
+                <a href="http://bio2rdf.github.io">Documentation</a>
               </li>
               <li class="">
                 <a href="http://groups.google.com/group/bio2rdf">Mailing list</a>
