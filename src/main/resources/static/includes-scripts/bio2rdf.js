@@ -48,6 +48,10 @@ bio2rdf.renderTriplesCallback = function(queryString, nextDatabank) {
         console.debug("[renderTriplesCallback] Databank size = " + nextDatabank.size());
     }
 
+    var table = document.createElement("table");
+    $table = $(table);
+    $table.addClass("table table-striped table-hover");
+
     // Find label if possible
     var labelQuery = $.rdf({
         databank : nextDatabank
@@ -59,13 +63,13 @@ bio2rdf.renderTriplesCallback = function(queryString, nextDatabank) {
 
     var label = "";
     $.each(labels, function(index, nextLabel) {
-        label += nextLabel.label.value + "<br/>";
+        label += nextLabel.label.value + " ";
         if (index === 0) {
             document.title = label + " : " + bio2rdf.appName;
         }
     });
 
-    $("#label").text(label);
+    $table.append($("<caption>").addClass("lead").text(label));
 
     var myQuery = $.rdf({
         databank : nextDatabank
@@ -76,9 +80,6 @@ bio2rdf.renderTriplesCallback = function(queryString, nextDatabank) {
     var bindings = myQuery.select();
 
     bindings.sort(bio2rdf.sortTriples);
-    var table = document.createElement("table");
-    $table = $(table);
-    $table.addClass("table table-striped");
 
     var trHeader = document.createElement("tr");
     $trHeader = $(trHeader);
