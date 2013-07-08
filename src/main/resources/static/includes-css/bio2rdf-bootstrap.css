@@ -16,3 +16,8 @@ body {
 #logo, #banner {
 	padding: 40px;
 }
+
+#all table {
+    margin-top: 20px;
+}
+
