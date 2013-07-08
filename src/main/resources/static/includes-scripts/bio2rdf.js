@@ -19,23 +19,26 @@ bio2rdf.load = function(queryString, nextDatabank, successCallback, failureCallb
         url : requestUrl,
         type : 'GET',
         dataType : 'json', // what is expected back
+        crossDomain : true,
         beforeSend : function(xhr) {
             xhr.setRequestHeader("Accept", "application/rdf+json");
-        },
-        done : function(data, textStatus, jqXHR) {
-            if (typeof console !== "undefined" && console.debug) {
-                console.debug("[load] Success");
-            }
+        }
+    }).done(function(data, textStatus, jqXHR) {
+        if (typeof console !== "undefined" && console.debug) {
+            console.debug("[load] Success");
+        }
 
-            nextDatabank.load(data);
+        nextDatabank.load(data);
 
-            if (typeof console !== "undefined" && console.debug) {
-                console.debug("[load] Databank size = " + nextDatabank.size());
-            }
+        if (typeof console !== "undefined" && console.debug) {
+            console.debug("[load] Databank size = " + nextDatabank.size());
+        }
 
-            successCallback(queryString, nextDatabank);
-        },
-        fail : failureCallback
+        successCallback(queryString, nextDatabank);
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        failureCallback(queryString, nextDatabank);
+    }).always(function(dataORjqXHR, textStatus, jqXHRORerrorThrown) {
+        console.debug("[load] Always called");
     });
 };
 
