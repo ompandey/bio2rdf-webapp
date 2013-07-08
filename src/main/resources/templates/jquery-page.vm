@@ -2,33 +2,67 @@
 <html xmlns="http://www.w3.org/1999/xhtml" version="XHTML+RDFa 1.0">
 <head>
 #if ($debugStrings)
-#foreach ($debugString in $debugStrings)
-$debugString
+<!-- Start debug information -->
+	#foreach ($debugString in $debugStrings)
+	$debugString
+	#end
+<!-- End debug information -->
 #end
-#end
-#set ($xmlEncoded_title = $title)
 #set ($xmlEncoded_project_name = $project_name)
 #set ($xmlEncoded_project_link = $project_link)
-#set ($xmlEncoded_server_base = $server_base)
-#set ($xmlEncoded_shortcut_icon = $shortcut_icon)
-	<title>${xmlEncoded_title}</title>
-	<link rel="shortcut icon" href="${xmlEncoded_server_base}static/includes-images/bio2rdf-16.png" />
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css" />
-	<script src="http://code.jquery.com/jquery-1.9.1.js" type="application/javascript" />
-	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js" type="application/javascript" />
-
-</head>
-<body>
-
 #set ($xmlEncoded_application_help = $application_help)
 #set ($xmlEncoded_server_base = $server_base)
 #set ($xmlEncoded_project_html_url_prefix = $project_html_url_prefix)
 #set ($xmlEncoded_project_html_url_suffix = $project_html_url_suffix)
 
+	<title>${xmlEncoded_project_name}</title>
+	<link rel="shortcut icon" href="${xmlEncoded_server_base}static/includes-images/bio2rdf-16.png" />
+#if ($debug_level_debug) 
+	<!-- Debug mode: loading uncompressed CSS and Javascript -->
+	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.css" rel="stylesheet" />
+	<script src="http://code.jquery.com/jquery-1.10.1.js" type="application/javascript"></script>
+	<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.js"></script>
+#else 
+	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js" type="application/javascript"></script>
+	<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+#end 
+	<link href="${xmlEncoded_server_base}static/includes-css/bio2rdf-bootstrap.css" rel="stylesheet" />
+	
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="${xmlEncoded_server_base}">Bio2RDF</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active">
+                <a href="${xmlEncoded_server_base}">Home</a>
+              </li>
+              <li class="">
+                <a href="https://github.com/bio2rdf/bio2rdf-scripts">Scripts</a>
+              </li>
+              <li class="">
+                <a href="https://github.com/bio2rdf/bio2rdf-webapp">Webapp</a>
+              </li>
+              <li class="">
+                <a href="http://groups.google.com/group/bio2rdf">Mailing list</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
 <div id="all">
-	<div id="main" style="text-align: center;">
+	<div id="main">
 		<div style="height: 20%;">&nbsp;</div>
-		<img src="${xmlEncoded_server_base}static/includes-images/Bio2rdf-logo-ob-med.png" alt="Logo of ${xmlEncoded_project_name}" />
+		<img id="logo" src="${xmlEncoded_server_base}static/includes-images/Bio2rdf-logo-ob-med.png" alt="Logo of ${xmlEncoded_project_name}" />
 		<form name="form1" action="/noscript/" onsubmit="document.location='${xmlEncoded_server_base}${xmlEncoded_project_html_url_prefix}'+form1.id.value+'${xmlEncoded_project_html_url_suffix}';return false;" method="POST">
 			<!-- TODO: Load this list dynamically -->
 			<select name="selectvalue" size="1" onChange="form1.id.value = this.options[this.selectedIndex].value;">
@@ -58,23 +92,9 @@ $debugString
 			<input type="submit" value="Submit" />
 		</form>
 	</div>
-	<div id="footer" style="text-align: center;">
-		<ul style="list-style-type: none;">
-			<li><a href="http://groups.google.com/group/bio2rdf">Send your comments to the project team</a>.</li>
-			<li>Get more information about available Bio2RDF datasets <a href="https://github.com/bio2rdf/bio2rdf-scripts/wiki">here</a>.</li>
-		</ul>
-    </div>
-	<div id="banner" style="text-align: center;">
-		<img style="width: 35%" src="${xmlEncoded_server_base}static/includes-images/bio2rdf-banner.jpg" alt="${xmlEncoded_project_name}" /> <img src="${xmlEncoded_server_base}static/includes-images/virtuoso.png" alt="RDF Databases powered by Virtuoso" />
+	<div id="banner">
+		<img style="width: 35%" src="${xmlEncoded_server_base}static/includes-images/bio2rdf-banner.jpg" alt="${xmlEncoded_project_name} supported by these organisations" /> <img src="${xmlEncoded_server_base}static/includes-images/virtuoso.png" alt="RDF Databases powered by Virtuoso" />
 	</div>
-</div>
-
-<div id="footer" style="text-align: center;">
-#if($application_name && $application_help)
-#set ($xmlEncoded_application_name = $application_name)
-#set ($xmlEncoded_application_help = $application_help)
-Powered by <a href="$xmlEncoded_application_help">$xmlEncoded_application_name</a>
-#end
 </div>
 
 </body>

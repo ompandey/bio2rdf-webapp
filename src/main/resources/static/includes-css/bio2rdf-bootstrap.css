@@ -1,0 +1,18 @@
+/* Adding top padding for navbar
+-------------------------------------------------- */
+body {
+    padding-top: 40px;
+    position: relative;
+}
+
+/* Align elements to the center
+-------------------------------------------------- */
+#logo, #banner, #main {
+	text-align: center;
+}
+
+/* Space around logo and banner
+-------------------------------------------------- */
+#logo, #banner {
+	padding: 40px;
+}
