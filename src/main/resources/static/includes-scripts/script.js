@@ -1,36 +1,40 @@
-function init() {
-	init_long_literals();
-}
+bio2rdf.newDatabank = function() {
+    var nextDatabank = $.rdf.databank();
+    nextDatabank.base(bio2rdf.baseUrl)
+    nextDatabank.prefix('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
+    nextDatabank.prefix('rdfs', 'http://www.w3.org/2000/01/rdf-schema#');
+    nextDatabank.prefix("xsd", "http://www.w3.org/2001/XMLSchema#");
+    nextDatabank.prefix("dcterms", "http://purl.org/dc/terms/");
+    nextDatabank.prefix("dc", "http://purl.org/dc/elements/1.1/");
+    nextDatabank.prefix('owl', 'http://www.w3.org/2002/07/owl#');
+    nextDatabank.prefix("foaf", "http://xmlns.com/foaf/0.1/");
 
-var long_literal_counter = 0;
-var long_literal_spans = {};
-var long_literal_texts = {};
-function init_long_literals() {
-    var spans = document.getElementsByTagName('span');
-    for (i = 0; i < spans.length; i++) {
-        if (spans[i].className != 'literal') continue;
-        var span = spans[i];
-        var textNode = span.firstChild;
-        var text = textNode.data;
-        if (text.length < 300) continue;
-        var match = text.match(/([^\0]{150}[^\0]*? )([^\0]*)/);
-        if (!match) continue;
-        span.insertBefore(document.createTextNode(match[1] + ' ... '), span.firstChild);
-        span.removeChild(textNode);
-        var link = document.createElement('a');
-        link.href = 'javascript:expand(' + long_literal_counter + ');';
-        link.appendChild(document.createTextNode('\u00BBmore\u00BB'));
-        link.className = 'expander';
-        span.insertBefore(link, span.firstChild.nextSibling);
-        long_literal_spans[long_literal_counter] = span;
-        long_literal_texts[long_literal_counter] = textNode;
-        long_literal_counter = long_literal_counter + 1;
-    }
-}
+    return nextDatabank;
+};
 
-function expand(i) {
-    var span = long_literal_spans[i];
-    span.removeChild(span.firstChild);
-    span.removeChild(span.firstChild);
-    span.insertBefore(long_literal_texts[i], span.firstChild);
+bio2rdf.load = function(queryString, nextDatabank, successCallback, failureCallback) {
+    var requestUrl = bio2rdf.baseUrl + queryString;
+    
+    $.ajax({
+        url : requestUrl,
+        type : 'GET',
+        dataType : 'json', // what is expected back
+        beforeSend : function(xhr) {
+            xhr.setRequestHeader("Accept", "application/rdf+json");
+        },
+        done : function(data, textStatus, jqXHR) {
+            if (typeof console !== "undefined" && console.debug) {
+                console.debug("[load] Success");
+            }
+            
+            nextDatabank.load(data);
+    
+            if (typeof console !== "undefined" && console.debug) {
+                console.debug("[load] Databank size = " + nextDatabank.size());
+            }
+    
+            successCallback(nextDatabank);
+        },
+        fail : failureCallback
+    });
 }

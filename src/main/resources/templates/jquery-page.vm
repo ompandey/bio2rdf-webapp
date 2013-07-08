@@ -29,11 +29,19 @@
 #end 
 	<link href="${xmlEncoded_server_base}static/includes-css/bio2rdf-bootstrap.css" rel="stylesheet" />
 	
+	<script src="${xmlEncoded_server_base}static/includes-scripts/jquery.rdfquery.rules-1.1-SNAPSHOT.js"></script>
+	
+	<script src="${xmlEncoded_server_base}static/includes-scripts/jquery.expander.min.js"></script>
+	
 	#if ($query_string) 
 		#set ($xmlEncoded_query_string = $query_string)
 	<script type="application/javascript">
 		bio2rdf = {};
+		bio2rdf.baseUrl = "${xmlEncoded_server_base}";
+		bio2rdf.databank = bio2rdf.newDatabank();
+		#if (!$stringutil.isEmpty($query_string)) 
 		bio2rdf.query = "${xmlEncoded_query_string}";
+		#end
 	</script>	
 	#end
 </head>
