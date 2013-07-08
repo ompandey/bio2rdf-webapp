@@ -28,30 +28,6 @@ queryall:uriSuffix "/" ;
 
 queryall:separator ":" ;
 
-queryall:rdfXmlUrlPrefix "rdfxml/" ;
-
-queryall:rdfXmlUrlSuffix "" ;
-
-queryall:n3UrlPrefix "n3/" ;
-
-queryall:n3UrlSuffix "" ;
-
-queryall:htmlUrlPrefix "page/" ;
-
-queryall:htmlUrlSuffix "" ;
-
-queryall:jsonUrlPrefix "json/" ;
-
-queryall:jsonUrlSuffix "" ;
-
-queryall:ntriplesUrlPrefix "ntriples/" ;
-
-queryall:ntriplesUrlSuffix "" ;
-
-queryall:nquadsUrlPrefix "nquads/" ;
-
-queryall:nquadsUrlSuffix "" ;
-
 queryall:alwaysRedirectToExplicitFormatUrl "false"^^xsd:boolean ;
 
 queryall:redirectToExplicitFormatHttpCode "303"^^xsd:int ;
@@ -79,30 +55,6 @@ queryall:adminConfigurationApiVersionOpeningPrefix "" ;
 queryall:adminConfigurationApiVersionClosingPrefix "/" ;
 
 queryall:adminConfigurationApiVersionSuffix "" ;
-
-queryall:adminConfigurationHtmlPrefix "" ;
-
-queryall:adminConfigurationHtmlSuffix "html" ;
-
-queryall:adminConfigurationRdfxmlPrefix "" ;
-
-queryall:adminConfigurationRdfxmlSuffix "rdfxml" ;
-
-queryall:adminConfigurationN3Prefix "" ;
-
-queryall:adminConfigurationN3Suffix "n3" ;
-
-queryall:adminConfigurationJsonPrefix "" ;
-
-queryall:adminConfigurationJsonSuffix "json" ;
-
-queryall:adminConfigurationNTriplesPrefix "" ;
-
-queryall:adminConfigurationNTriplesSuffix "ntriples" ;
-
-queryall:adminConfigurationNQuadsPrefix "" ;
-
-queryall:adminConfigurationNQuadsSuffix "nquads" ;
 
 queryall:pageoffsetOnlyShowForNsId "true"^^xsd:boolean ;
 
@@ -162,9 +114,13 @@ queryall:commentProperties
 queryall:urlProperties 
 bio2rdf_bio2rdf_resource:url , <http://xmlns.com/foaf/0.1/page> , <http://xmlns.com/foaf/0.1/homepage> , <http://rdf.myexperiment.org/ontologies/base/human-start-page> , <http://purl.org/dc/terms/hasFormat> , <http://rdf.myexperiment.org/ontologies/base/content-url> ;
 
-queryall:indexTemplate "/templates/jquery-page.vm" ;
+queryall:ajaxIndexTemplate "/templates/jquery-page.vm" ;
 
-queryall:resultsTemplate "/templates/jquery-page.vm" ;
+queryall:ajaxResultsTemplate "/templates/jquery-page.vm" ;
+
+queryall:indexTemplate "/templates/default-index.vm" ;
+
+queryall:resultsTemplate "/templates/page.vm" ;
 
 queryall:errorTemplate "/templates/error.vm" ;
 
@@ -197,6 +153,8 @@ queryall:useRequestCache "true"^^xsd:boolean ;
 queryall:convertAlternateNamespacePrefixesToPreferred "true"^^xsd:boolean ;
 
 queryall:useVirtuosoMaxRowsParameter "false"^^xsd:boolean ;
+
+queryall:useAjaxHtmlInterface "true"^^xsd:boolean ;
 
 .
 
