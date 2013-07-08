@@ -47,6 +47,49 @@ bio2rdf.renderTriplesCallback = function(queryString, nextDatabank) {
         console.debug("[renderTriplesCallback] queryString = " + queryString);
         console.debug("[renderTriplesCallback] Databank size = " + nextDatabank.size());
     }
+
+    var myQuery = $.rdf({
+        databank : nextDatabank
+    })
+    // Find all possible child object details for this object type
+    .where('?subject ?predicate ?object');
+
+    var bindings = myQuery.select();
+
+    bindings.sort(bio2rdf.sortTriples);
+    var table = document.createElement("table");
+    $table = $(table);
+    // Using document.createElement as it has a huge advantage over the jquery
+    // method according to:
+    // http://jsperf.com/create-dom-element/10
+    $.each(bindings, function(index, nextChild) {
+        var tr = document.createElement("tr");
+        $tr = $(tr);
+        
+        var tdSubject = document.createElement("td");
+        $tdSubject = $(tdSubject);
+        if(nextChild.subject.type === "uri") {
+            $tdSubject.attr("about", nextChild.subject.value);
+        }
+        $tdSubject.text(nextChild.subject.value);
+        $tr.append($tdSubject);
+        
+        var tdPredicate = document.createElement("td");
+        $tdPredicate = $(tdPredicate);
+        // TODO: Add RDFa for predicate
+        $tdPredicate.text(nextChild.predicate.value);
+        $tr.append($tdPredicate);
+        
+        var tdObject = document.createElement("td");
+        $tdObject = $(tdObject);
+        // TODO: Add RDFa for object
+        $tdObject.text(nextChild.object.value);
+        $tr.append($tdObject);
+        
+        $table.append($tr);
+    });
+    
+    $("#all").append($table);
 };
 
 bio2rdf.errorCallback = function(queryString, nextDatabank) {
@@ -56,4 +99,34 @@ bio2rdf.errorCallback = function(queryString, nextDatabank) {
     }
     $("<div></div>").class("alert alert-block alert-error fade in").val("Could not load data for: " + queryString)
             .appendTo($("#errorMessage"));
+};
+
+bio2rdf.sortTriples = function(a, b) {
+    if (a.type === 'uri') {
+        if (b.type === 'uri') {
+            return (a.value > b.value) ? 1 : -1;
+        }
+        else {
+            return -1;
+        }
+    }
+    else if (b.type === 'uri') {
+        return 1;
+    }
+
+    if (a.type === 'literal') {
+        if (b.type === 'literal') {
+            return (a.value > b.value) ? 1 : -1;
+        }
+        else {
+            return -1;
+        }
+    }
+    else if (b.type === 'literal') {
+        return 1;
+    }
+    else {
+        // Simple comparison on bnode labels
+        return (a.value > b.value) ? 1 : -1;
+    }
 };
