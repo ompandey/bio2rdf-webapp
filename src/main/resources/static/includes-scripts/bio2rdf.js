@@ -59,6 +59,28 @@ bio2rdf.renderTriplesCallback = function(queryString, nextDatabank) {
     bindings.sort(bio2rdf.sortTriples);
     var table = document.createElement("table");
     $table = $(table);
+    $table.addClass("table table-striped");
+    
+    var trHeader = document.createElement("tr");
+    $trHeader = $(trHeader);
+    
+    var thSubject = document.createElement("th");
+    $thSubject = $(thSubject);
+    $thSubject.text("Subject");
+    $trHeader.append($thSubject);
+    
+    var thPredicate = document.createElement("th");
+    $thPredicate = $(thPredicate);
+    $thPredicate.text("Predicate");
+    $trHeader.append($thPredicate);
+    
+    var thObject = document.createElement("th");
+    $thObject = $(thObject);
+    $thObject.text("Object");
+    $trHeader.append($thObject);
+    
+    $table.append($trHeader);
+    
     // Using document.createElement as it has a huge advantage over the jquery
     // method according to:
     // http://jsperf.com/create-dom-element/10
@@ -97,7 +119,7 @@ bio2rdf.errorCallback = function(queryString, nextDatabank) {
         console.debug("[errorCallback] queryString = " + queryString);
         console.debug("[errorCallback] Databank size = " + nextDatabank.size());
     }
-    $("<div></div>").class("alert alert-block alert-error fade in").val("Could not load data for: " + queryString)
+    $("<div></div>").addClass("alert alert-block alert-error fade in").val("Could not load data for: " + queryString)
             .appendTo($("#errorMessage"));
 };
 

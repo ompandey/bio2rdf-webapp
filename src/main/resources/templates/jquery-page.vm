@@ -119,10 +119,6 @@
 		<div id="banner">
 			<img style="width: 35%" src="${xmlEncoded_server_base}static/includes-images/bio2rdf-banner.jpg" alt="${xmlEncoded_project_name} supported by these organisations" /> <img src="${xmlEncoded_server_base}static/includes-images/virtuoso.png" alt="RDF Databases powered by Virtuoso" />
 		</div>
-	#else
-		<div id="main">
-			Query was ={${xmlEncoded_query_string}}=
-		</div>
 	#end
 </div>
 
