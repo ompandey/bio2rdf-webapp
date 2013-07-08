@@ -14,7 +14,7 @@ bio2rdf.newDatabank = function() {
 
 bio2rdf.load = function(queryString, nextDatabank, successCallback, failureCallback) {
     var requestUrl = bio2rdf.baseUrl + queryString;
-    
+
     $.ajax({
         url : requestUrl,
         type : 'GET',
@@ -26,15 +26,31 @@ bio2rdf.load = function(queryString, nextDatabank, successCallback, failureCallb
             if (typeof console !== "undefined" && console.debug) {
                 console.debug("[load] Success");
             }
-            
+
             nextDatabank.load(data);
-    
+
             if (typeof console !== "undefined" && console.debug) {
                 console.debug("[load] Databank size = " + nextDatabank.size());
             }
-    
-            successCallback(nextDatabank);
+
+            successCallback(queryString, nextDatabank);
         },
         fail : failureCallback
     });
-}
+};
+
+bio2rdf.renderTriplesCallback = function(queryString, nextDatabank) {
+    if (typeof console !== "undefined" && console.debug) {
+        console.debug("[renderTriplesCallback] queryString = " + queryString);
+        console.debug("[renderTriplesCallback] Databank size = " + nextDatabank.size());
+    }
+};
+
+bio2rdf.errorCallback = function(queryString, nextDatabank) {
+    if (typeof console !== "undefined" && console.debug) {
+        console.debug("[errorCallback] queryString = " + queryString);
+        console.debug("[errorCallback] Databank size = " + nextDatabank.size());
+    }
+    $("<div></div>").class("alert alert-block alert-error fade in").val("Could not load data for: " + queryString)
+            .appendTo($("#errorMessage"));
+};
