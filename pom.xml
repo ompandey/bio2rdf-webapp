@@ -44,7 +44,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<sesame.version>2.7.2</sesame.version>
-		<sesamerioextensions.version>0.5-SNAPSHOT</sesamerioextensions.version>
+		<sesamerioextensions.version>0.4</sesamerioextensions.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<queryall.version>1.4-SNAPSHOT</queryall.version>
 	</properties>
@@ -406,7 +406,12 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<skip>true</skip>
+					<systemPropertyVariables>
+						<log4j.configuration>test.log4j.properties</log4j.configuration>
+					</systemPropertyVariables>
+					<includes>
+						<include>**/*CheckTest.java</include>
+					</includes>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -430,7 +435,6 @@
 							<goal>integration-test</goal>
 						</goals>
 						<configuration>
-							<skip>false</skip>
 							<systemPropertyVariables>
 								<log4j.configuration>test.log4j.properties</log4j.configuration>
 							</systemPropertyVariables>

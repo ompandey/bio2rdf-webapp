@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" version="XHTML+RDFa 1.0">
+<head>
+#if ($debugStrings)
+<!-- Start debug information -->
+	#foreach ($debugString in $debugStrings)
+	$debugString
+	#end
+<!-- End debug information -->
+#end
+#set ($xmlEncoded_project_name = $project_name)
+#set ($xmlEncoded_project_link = $project_link)
+#set ($xmlEncoded_application_help = $application_help)
+#set ($xmlEncoded_server_base = $server_base)
+#set ($xmlEncoded_project_html_url_prefix = $project_html_url_prefix)
+#set ($xmlEncoded_project_html_url_suffix = $project_html_url_suffix)
+
+	<title>${xmlEncoded_project_name}</title>
+	<link rel="shortcut icon" href="${xmlEncoded_server_base}static/includes-images/bio2rdf-16.png" />
+	<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" />
+#if ($debug_level_info) 
+	<!-- Debug mode: loading uncompressed CSS and Javascript -->
+	<script src="http://code.jquery.com/jquery-1.10.1.js" type="application/javascript"></script>
+	<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.js"></script>
+#else 
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js" type="application/javascript"></script>
+	<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+#end 
+	<link href="${xmlEncoded_server_base}static/includes-css/bio2rdf-bootstrap.css" rel="stylesheet" />
+	
+	<script src="${xmlEncoded_server_base}static/includes-scripts/jquery.rdfquery.rules-1.1-SNAPSHOT.js"></script>
+	
+	<script src="${xmlEncoded_server_base}static/includes-scripts/jquery.expander.min.js"></script>
+	
+	<script type="application/javascript">
+		bio2rdf = {
+			baseUrl: "${xmlEncoded_server_base}",
+			appName: "${xmlEncoded_project_name}"
+		};
+	</script>	
+	
+	<script src="${xmlEncoded_server_base}static/includes-scripts/bio2rdf.js"></script>
+	
+	#if ($query_string) 
+		#set ($xmlEncoded_query_string = $query_string)
+	<script type="application/javascript">
+		#if (!$stringutil.isEmpty($query_string)) 
+		bio2rdf.query = "${xmlEncoded_query_string}";
+		$(document).ready(function() {
+			bio2rdf.databank = bio2rdf.newDatabank();
+			bio2rdf.load(bio2rdf.query, bio2rdf.databank, bio2rdf.renderTriplesCallback, bio2rdf.errorCallback);
+		});
+		#end
+	</script>	
+	#end
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="${xmlEncoded_server_base}">Bio2RDF</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active">
+                <a href="${xmlEncoded_server_base}">Home</a>
+              </li>
+              <li class="">
+                <a href="http://bio2rdf.github.io">Documentation</a>
+              </li>
+              <li class="">
+                <a href="http://groups.google.com/group/bio2rdf">Mailing list</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="errorMessage">
+    
+    </div>
+    
+    <div id="label">
+    	
+    </div>
+    
+	<div id="all">
+	#if ($stringutil.isEmpty($query_string)) 
+		<div id="main">
+			<div style="height: 20%;">&nbsp;</div>
+			<img id="logo" src="${xmlEncoded_server_base}static/includes-images/Bio2rdf-logo-ob-med.png" alt="Logo of ${xmlEncoded_project_name}" />
+			<form name="form1" action="/noscript/" onsubmit="document.location='${xmlEncoded_server_base}${xmlEncoded_project_html_url_prefix}'+form1.id.value+'${xmlEncoded_project_html_url_suffix}';return false;" method="POST">
+				<!-- TODO: Load this list dynamically -->
+				<select name="selectvalue" size="1" onChange="form1.id.value = this.options[this.selectedIndex].value;">
+					<option value="" selected="selected" >Select an ID example</option>
+					<option value="go:0032283">plastid acetate CoA-transferase complex [go:0032283]</option>
+					<option value="chebi:16526">carbon dioxide [chebi:16526]</option>
+					<option value="omim:602080">PAGET DISEASE OF BONE; PDB [omim:602080]</option>
+					<option value="geneid:37191">Serotonin receptor 1B (symbol:5-HT1B,taxon:7227) [geneid:37191]</option>
+					<option value="taxonomy:9606">Homo Sapiens [taxon:9606]</option>
+					<option value="drugbank:DB00143"> Glutathione [drugbank:DB00143]</option>
+					<option value="go:0005813"> Centrosome [go:0005813]</option>
+					<option value="pharmgkb:PA128406956"> fluorouracil [pharmgkb:PA128406956]</option>
+					<option value="affymetrix:1415765_at"> probeset 1415765_at on GeneChip HT Mouse Genome MG-430B (Mus musculus) [affymetrix:1415765_at] </option>
+					<option value="sgd:S000006169"> GAL4 [sgd:S000006169]</option>
+					<option value="ndc:0781-1034">Trifluoperazine Hydrochloride (5 mg/1 trifluoperazine hydrochloride) [ndc:0781-1034]</option>
+					<option value="homologene:8260"> HomoloGene Group 8260 [homologene:8260]</option>
+					<option value="dip:DIP-57266E"> 3 component complex identified by protein cross-linking with a bifunctional reagent [dip:DIP-57266E] </option>
+					<option value="hgnc:24086"> APOBEC1 complementation factor [hgnc:24086] </option>
+					<option value="interpro:IPR009407"> Viral polyprotein, parechovirus P3B (VPP_parechovir_P3B) Domain [interpro:IPR009407]</option>
+					<option value="search/hexokinase">Search for "hexokinase" in Bio2RDF</option>
+					<option value="searchns/drugbank/aspirin">Text search for "aspirin" in DrugBank</option>
+					<option value="searchns/mesh/parkinson">Text search for "parkinson" in MeSH</option>
+					<option value="searchns/kegg/parkinson">Text search for "parkinson" in Kegg</option>
+					<option value="searchns/geneid/parp1">Text search for "parp1" in EntrezGene</option>
+				</select>
+				<input type="text" name="id" size="30" maxlength="150" />
+				<input type="submit" value="Submit" />
+			</form>
+		</div>
+		<div id="banner">
+			<img style="width: 35%" src="${xmlEncoded_server_base}static/includes-images/bio2rdf-banner.jpg" alt="${xmlEncoded_project_name} supported by these organisations" /> <img src="${xmlEncoded_server_base}static/includes-images/virtuoso.png" alt="RDF Databases powered by Virtuoso" />
+		</div>
+	#end
+</div>
+
+</body>
+</html>
